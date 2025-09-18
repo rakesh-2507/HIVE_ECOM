@@ -848,19 +848,22 @@ if (menuData[currentPath]) {
     "CONTACT US": "/contact.html",
   };
 
-  // Parent breadcrumb (clickable link)
-  let html = `<a href="${parentLinks[data.parent]}" class="bread">${
-    data.parent
-  }</a>`;
+// Check if any submenu matches the current path
+const isSubActive = data.items.some(item => item.link === currentPath);
 
-  // Submenu items
-  data.items.forEach((item) => {
-    if (item.link === currentPath) {
-      html += ` <span class="mx-2">›</span> <span class="sub-bread">${item.name}</span>`;
-    } else {
-      html += ` <span class="mx-2">|</span> <a href="${item.link}" class="sub-bread-item">${item.name}</a>`;
-    }
-  });
+// Parent breadcrumb (apply extra class if a sub-bread is active)
+let html = `<a href="${parentLinks[data.parent]}" class="bread${
+  isSubActive ? " active-parent" : ""
+}">${data.parent}</a>`;
 
-  submenuContainer.innerHTML = html;
+// Submenu items
+data.items.forEach((item) => {
+  if (item.link === currentPath) {
+    html += ` <span class="mx-2">›</span> <span class="sub-bread">${item.name}</span>`;
+  } else {
+    html += ` <span class="mx-2">|</span> <a href="${item.link}" class="sub-bread-item">${item.name}</a>`;
+  }
+});
+
+submenuContainer.innerHTML = html;
 }

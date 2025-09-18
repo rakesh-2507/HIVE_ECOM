@@ -96,10 +96,6 @@ body {
   color: #fff !important;
 }
 
-.top-menu-item a.sub-active {
-  color: #00a7b3;
-}
-
 .side-menu-item a.sub-active {
   color: #00a7b3;
 }
@@ -149,35 +145,33 @@ body {
   padding: 5px 8px;
   display: block;
   transition: color 0.3s, border-bottom 0.3s;
-  font-size: 13px;
+  font-size: 12px;
 }
 
 .top-menu-item a:hover {
   color: #00a7b3;
+  border-bottom: 4px solid #005c62;
 }
 
 .top-menu-item a.active {
   color: #005c62;
-  border-bottom: 2px solid #005c62;
   font-weight: bold;
+  border-bottom: 4px solid #005c62;
 }
 
-.top-submenu-card {
-  opacity: 0;
-  visibility: hidden;
+#top-submenu-card {
   position: absolute;
   top: 100%;
-  left: 0;
+  display: none; /* JS will toggle display */
   background: #fff;
   border: 1px solid #ddd;
-  border-radius: 6px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  min-width: 180px;
+  width: 60%;
+  height: 220px;
   z-index: 999;
-  padding: 10px;
-  margin-top: 2px;
-  transform: translateY(5px); /* slight slide-down */
-  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+  padding: 15px;
+  gap: 20px;
+  transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
 .top-submenu-card a {
@@ -186,23 +180,122 @@ body {
   font-size: 11px;
   text-decoration: none;
   color: #000;
-  border-radius: 4px;
 }
 
 .top-submenu-card a:hover {
-  background: #f1f1f1;
+  text-decoration: underline;
+  color: #000;
 }
 
-.top-menu-item:hover .top-submenu-card {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
+.top-submenu-card {
+  display: flex;
+  gap: 20px;
+  padding: 15px;
+}
+
+.submenu-left {
+  flex: 1;
+  padding-right: 15px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 15px;
+  align-content: start;
+  border-right: 2px solid #005c62;
+}
+
+.submenu-left a {
+  font-size: 13px;
+  text-decoration: none;
+  color: #000;
+  line-height: 1.4;
+  padding: 4px 0;
+  white-space: normal;
+}
+
+.submenu-left a:hover {
+  text-decoration: underline;
+}
+#top-submenu-card .submenu-left a.active,
+#top-submenu-card .submenu-right a.active {
+  color: #005c62;
+  font-weight: 600;
+}
+
+.submenu-right {
+  flex: 1;
+  padding-left: 15px;
+}
+
+.submenu-right h4 {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 8px;
+  color: #005c62;
+}
+
+.submenu-right p {
+  font-size: 12px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.submenu-right .read-more {
+  font-size: 12px;
+  color: #00a7b3;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.submenu-right .read-more:hover {
+  text-decoration: underline;
+}
+
+/* Remove default bullets */
+.desc-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+/* Add arrows */
+.desc-list li {
+  position: relative;
+  padding-left: 18px; /* space for arrow */
+  margin-bottom: 6px;
+}
+
+.desc-list li::before {
+  content: ">"; /* arrow symbol */
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #005c62; /* arrow color */
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/* Links styling */
+.desc-list a {
+  text-decoration: none;
+  color: #000;
+  font-size: 12px;
+}
+
+.desc-list a:hover {
+  text-decoration: underline;
+}
+
+/* Active state */
+.desc-list a.active {
+  font-weight: bold;
+  color: #005c62;
 }
 
 .search {
   gap: 20px;
 }
 
+/* ---------- Breadcrumb ---------- */
 .submenu-bar {
   display: flex;
   align-items: center;
@@ -212,37 +305,43 @@ body {
   position: relative;
 }
 
-.submenu-bar a {
-  color: #333;
-}
-
-.submenu-bar a:hover {
-  text-decoration: underline;
-}
-
 .bread {
-  color: #005c62 !important;
+  color: #005c62;
   font-weight: bold;
   font-size: 15px;
+  text-decoration: none;
+  border-bottom: 4px solid #005c62;
+}
+
+.bread.active-parent {
+  font-weight: bold;
+  color: #005c62;
+  border-bottom: none;
 }
 
 .sub-bread {
   color: #005c62 !important;
   font-weight: bold;
   font-size: 13px;
+  border-bottom: 4px solid #005c62;
 }
 
 .sub-bread-item {
   font-weight: bold;
   font-size: 12px;
   text-decoration: none;
+  color: #000;
 }
 
-/* ---------- Responsive Horizontal Menu ---------- */
+.sub-bread-item:hover {
+  border-bottom: 4px solid #005c62;
+}
+
+/* ---------- Responsive ---------- */
 @media (max-width: 1200px) {
   .horizontal-menu,
   .submenu-bar {
-    padding: 0.2rem 2rem; /* reduce horizontal padding */
+    padding: 0.2rem 2rem;
     gap: 10px;
     font-size: 12px;
   }
@@ -262,7 +361,6 @@ body {
   }
 
   .submenu-bar {
-    padding: 0.2rem 2rem;
     gap: 8px;
     font-size: 11px;
   }
@@ -283,7 +381,7 @@ body {
     width: 100%;
     padding: 10px;
     font-size: 14px;
-    border-bottom: 1px solid #eee;
+    border-bottom: 4px solid #eee;
   }
 
   .top-submenu-card {
@@ -293,26 +391,12 @@ body {
     box-shadow: none;
     border: none;
     width: 100%;
-    border-radius: 0;
     display: none;
   }
 
   .submenu-bar {
-    align-items: center;
     gap: 5px;
     width: 100%;
     overflow-x: scroll;
-  }
-}
-
-@media (max-width: 768px) {
-  .menu-toggle {
-    display: block;
-  }
-  .horizontal-menu {
-    display: none;
-  }
-  .header {
-    padding: 0rem;
   }
 }

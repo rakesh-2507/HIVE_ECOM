@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HIVE</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        /* ---------- Header ---------- */
+        .header {
+            padding: 0.1rem 10rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .header .logo {
+            font-size: 50px;
+            font-weight: bold;
+        }
+
+        .menu-icon {
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* ---------- Horizontal Menu ---------- */
+        .horizontal-menu {
+            display: flex;
+            align-items: center;
+            padding: 0.2rem 10rem;
+            border-bottom: 1px solid #ddd;
+            gap: 15px;
+            font-size: 10px;
+            position: relative;
+        }
+
+        .top-menu-item {
+            position: relative;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .top-menu-item a {
+            text-decoration: none;
+            color: #000;
+            padding: 5px 8px;
+            display: block;
+            transition: color 0.3s, border-bottom 0.3s;
+            font-size: 12px;
+        }
+
+        .top-menu-item a:hover {
+            color: #00a7b3;
+            border-bottom: 4px solid #005c62;
+        }
+
+        .top-menu-item a.active {
+            color: #005c62;
+            font-weight: bold;
+            border-bottom: 4px solid #005c62;
+        }
+
+        /* ---------- Single Submenu Card ---------- */
+        #top-submenu-card {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 600px;
+            height: 250px;
+            background: #fff;
+            border: 1px solid #ddd;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            gap: 20px;
+            padding: 15px;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+            z-index: 999;
+        }
+
+        #top-submenu-card.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        .submenu-left {
+            flex: 1;
+            border-right: 1px solid #eee;
+            padding-right: 15px;
+        }
+
+        .submenu-left a {
+            display: block;
+            padding: 6px 0;
+            font-size: 13px;
+            text-decoration: none;
+            color: #000;
+        }
+
+        .submenu-left a:hover {
+            color: #005c62;
+            text-decoration: underline;
+        }
+
+        .submenu-right {
+            flex: 1;
+            padding-left: 15px;
+        }
+
+        .submenu-right h4 {
+            font-size: 14px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            color: #005c62;
+        }
+
+        .submenu-right p {
+            font-size: 12px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .submenu-right .read-more {
+            font-size: 12px;
+            color: #00a7b3;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .submenu-right .read-more:hover {
+            text-decoration: underline;
+        }
+
+        /* ---------- Responsive ---------- */
+        @media (max-width: 1200px) {
+            .horizontal-menu {
+                padding: 0.2rem 2rem;
+                gap: 10px;
+                flex-wrap: wrap;
+            }
+
+            #top-submenu-card {
+                width: 100%;
+                min-width: 140px;
+                padding: 8px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .horizontal-menu {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 0.5rem 1rem;
+            }
+
+            .top-menu-item {
+                width: 100%;
+            }
+
+            .top-menu-item a {
+                width: 100%;
+                padding: 10px;
+                font-size: 14px;
+                border-bottom: 4px solid #eee;
+            }
+
+            #top-submenu-card {
+                position: relative;
+                top: 0;
+                left: 0;
+                box-shadow: none;
+                border: none;
+                width: 100%;
+                height: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header -->
+    <div class="header">
+        <div class="d-flex align-items-center search">
+            <span class="menu-icon" onclick="openNav()">&#9776;</span>
+            <span><i class="fa-solid fa-magnifying-glass"></i></span>
+        </div>
+        <div class="logo">HIVE</div>
+        <div>
+            <button class="btn btn-dark btn-sm">Register</button>
+            <a href="#" class="ms-3 text-dark">Sign In</a>
+        </div>
+    </div>
+
+    <!-- Horizontal Menu -->
+    <div class="horizontal-menu">
+        <div class="top-menu-item" data-menu="home"><a href="/">HOME</a></div>
+        <div class="top-menu-item" data-menu="solutions"><a href="/solutions.html">SOLUTIONS</a></div>
+        <div class="top-menu-item" data-menu="features"><a href="/features.html">FEATURES</a></div>
+        <div class="top-menu-item" data-menu="industries"><a href="/industries.html">INDUSTRIES SERVED</a></div>
+        <div class="top-menu-item" data-menu="benefits"><a href="/benefits.html">BENEFITS</a></div>
+        <div class="top-menu-item" data-menu="resources"><a href="/resources.html">RESOURCES</a></div>
+        <div class="top-menu-item" data-menu="pricing"><a href="/pricing.html">PRICING</a></div>
+        <div class="top-menu-item" data-menu="about"><a href="/about.html">ABOUT US</a></div>
+        <div class="top-menu-item" data-menu="support"><a href="/support.html">SUPPORT</a></div>
+        <div class="top-menu-item" data-menu="contact"><a href="/contact.html">CONTACT US</a></div>
+
+        <!-- Single Submenu Card -->
+        <div id="top-submenu-card">
+            <div class="submenu-left"></div>
+            <div class="submenu-right"></div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container mt-5">
+        <h1>Welcome to HIVE</h1>
+    </div>
+
+    <script>
+        const submenuData = {
+            home: {
+                left: [
+                    { name: "Overview of Solution", link: "/home/overview.html" },
+                    { name: "Key Value Proposition", link: "/home/keyvalueproposition.html" },
+                    { name: "Quick Demo", link: "/home/demo.html" }
+                ],
+                right: { title: "📌 Must Read", desc: "Learn how our solutions help organizations manage assets effectively.", link: "/resources/casestudies.html" }
+            },
+            solutions: {
+                left: [
+                    { name: "Fixed Asset Management", link: "/solutions/assetmanage.html" },
+                    { name: "Asset Accounting", link: "/solutions/accounting.html" },
+                    { name: "Inventory & Equipment", link: "/solutions/inventory.html" },
+                    { name: "Custom Solutions", link: "/solutions/customsolutions.html" }
+                ],
+                right: { title: "📌 Must Read", desc: "Learn how our solutions help organizations manage assets effectively.", link: "/resources/casestudies.html" }
+            },
+            features: {
+                left: [
+                    { name: "Centralized Asset Register", link: "/features/assetregister.html" },
+                    { name: "Acquisition & Disposal", link: "/features/acquisition.html" },
+                    { name: "Geo-Tagging", link: "/features/geotagging.html" },
+                    { name: "Preventive & Corrective Maintenance", link: "/features/preventive.html" },
+                    { name: "Multi-Level User Access", link: "/features/multiuseraccess.html" },
+                    { name: "Mobile App Integration", link: "/features/mobileappint.html" },
+                    { name: "Cloud & On-Premise", link: "/features/cloudonpremise.html" },
+                    { name: "Analytics & Dashboards", link: "/features/analytics.html" }
+                ],
+                right: { title: "📌 Must Read", desc: "Learn how our solutions help organizations manage assets effectively.", link: "/resources/casestudies.html" }
+            },
+            industries: {
+                left: [
+                    { name: "Aviation", link: "/industries/aviation.html" },
+                    { name: "Publishing", link: "/industries/publishing.html" },
+                    { name: "Corporate & Enterprises", link: "/industries/corporate.html" },
+                    { name: "Real Estate / Gated Communities", link: "/industries/realestate.html" },
+                    { name: "Educational Institutions", link: "/industries/educational.html" },
+                    { name: "Hospitals & Healthcare", link: "/industries/healthcare.html" },
+                    { name: "Manufacturing & Warehousing", link: "/industries/manufacturing.html" },
+                    { name: "Government & Public Sector", link: "/industries/sectors.html" }
+                ],
+                right: { title: "📌 Must Read", desc: "Learn how our solutions help organizations manage assets effectively.", link: "/resources/casestudies.html" }
+            },
+            benefits: {
+                left: [
+                    { name: "Cost Savings & ROI", link: "/benefits/costsavings.html" },
+                    { name: "Compliance & Risk Mitigation", link: "/benefits/compliance.html" },
+                    { name: "Transparency & Accountability", link: "/benefits/transparency.html" },
+                    { name: "Operational Efficiency", link: "/benefits/operational.html" },
+                    { name: "Fraud & Loss Prevention", link: "/benefits/prevention.html" }
+                ],
+                right: { title: "📌 Must Read", desc: "Learn how our solutions help organizations manage assets effectively.", link: "/resources/casestudies.html" }
+            },
+            resources: {
+                left: [
+                    { name: "Case Studies", link: "/resources/casestudies.html" },
+                    { name: "Whitepapers", link: "/resources/whitepapers.html" },
+                    { name: "Blogs", link: "/resources/blogs.html" },
+                    { name: "FAQs", link: "/resources/faq.html" },
+                    { name: "Guides", link: "/resources/guides.html" }
+                ],
+                right: { title: "📌 Must Read", desc: "Learn how our solutions help organizations manage assets effectively.", link: "/resources/casestudies.html" }
+            },
+            pricing: {
+                left: [
+                    { name: "Plans & Packages", link: "/pricing/plans.html" },
+                    { name: "Enterprise Customization", link: "/pricing/customization.html" },
+                    { name: "Free Trial / Demo", link: "/pricing/freetrail.html" }
+                ],
+                right: { title: "📌 Must Read", desc: "Learn how our solutions help organizations manage assets effectively.", link: "/resources/casestudies.html" }
+            },
+            about: {
+                left: [
+                    { name: "Company Profile", link: "/about/company.html" },
+                    { name: "Vision & Mission", link: "/about/vision.html" },
+                    { name: "Leadership Team", link: "/about/leadership.html" },
+                    { name: "Certifications", link: "/about/certifications.html" }
+                ],
+                right: { title: "📌 Must Read", desc: "Learn how our solutions help organizations manage assets effectively.", link: "/resources/casestudies.html" }
+            },
+            support: {
+                left: [
+                    { name: "Knowledge Base", link: "/support/knowledge.html" },
+                    { name: "Training & Onboarding", link: "/support/training.html" },
+                    { name: "Helpdesk", link: "/support/helpdesk.html" },
+                    { name: "Contact Support", link: "/support/contactsupport.html" }
+                ],
+                right: { title: "📌 Must Read", desc: "Learn how our solutions help organizations manage assets effectively.", link: "/resources/casestudies.html" }
+            },
+            contact: {
+                left: [
+                    { name: "Sales Inquiry", link: "/contact/sales.html" },
+                    { name: "Demo Request", link: "/contact/demorequest.html" },
+                    { name: "Office Locations", link: "/contact/officelocations.html" },
+                    { name: "Email / Phone / Chat", link: "/contact/emailchat.html" }
+                ],
+                right: { title: "📌 Must Read", desc: "Learn how our solutions help organizations manage assets effectively.", link: "/resources/casestudies.html" }
+            }
+        };
+
+        const card = document.getElementById("top-submenu-card");
+
+        document.querySelectorAll(".top-menu-item").forEach(item => {
+            item.addEventListener("mouseenter", () => {
+                const menuKey = item.dataset.menu;
+                const data = submenuData[menuKey];
+
+                // Update left column
+                const leftCol = card.querySelector(".submenu-left");
+                leftCol.innerHTML = data.left.map(link => `<a href="${link.link}">${link.name}</a>`).join("");
+
+                // Update right column
+                const rightCol = card.querySelector(".submenu-right");
+                rightCol.innerHTML = `<h4>${data.right.title}</h4><p>${data.right.desc}</p><a href="${data.right.link}" class="read-more">See Case Studies →</a>`;
+
+                // Show submenu card
+                card.classList.add("show");
+            });
+        });
+
+        // Hide submenu when mouse leaves the card
+        card.addEventListener("mouseleave", () => {
+            card.classList.remove("show");
+        });
+    </script>
+
+</body>
+</html>
