@@ -2,6 +2,8 @@ body {
   font-family: Arial, sans-serif;
 }
 
+/*HEADER NAVBAR SIDE NAV START */
+
 /* ---------- Header ---------- */
 .header {
   padding: 0.1rem 10rem;
@@ -399,4 +401,42 @@ body {
     width: 100%;
     overflow-x: scroll;
   }
+}
+/*HEADER NAVBAR SIDE NAV ENDED */
+/*HEADER NAVBAR SIDE NAV ENDED */
+
+/*********************************** Index.html styles ********************************/
+.headline {
+  font-size: 2rem;
+  font-weight: bold;
+}
+.sub-text {
+  color: #666;
+  font-size: 0.9rem;
+}
+.editor-picks h6 {
+  font-weight: bold;
+  color: #a21c1c;
+}
+.editor-picks .pick-title {
+  font-weight: bold;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+.article-img {
+  object-fit: cover;
+  width: 100%;
+  height: auto;
+}
+.author {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+  font-size: 0.9rem;
+}
+.author img {
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  margin-right: 10px;
 }
